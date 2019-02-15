@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="index.js"></script>
+</head>
+
+<body>
+<a id="return-to-top" onclick="smoothScroll(document.getElementById('second'))"><i class="fa fa-chevron-up"></i></span></a>
+<center>
+
+<div class="first"  id="first">
+	<img id="google" src="images/google.gif" width="900px">
+	<table>
+	  <tr>
+	    <td>
+	    	<input id="string" name="string" class="form-control form-control-lg" type="text" placeholder="Enter letters..." onfocus="this.value=''"> 
+	    </td>
+	    <td>
+	    	<input id="template" name="template" class="form-control form-control-lg" type="text" placeholder="Enter template..." onfocus="this.value=''">    
+	    </td> 
+	    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    <td>
+	    	<audio id="sound1" src="sounds/button-2.mp3" preload="auto"></audio>
+	    	<a href="#" id="button1" onclick="document.getElementById('sound1').play(); getAnswer(); smoothScroll(document.getElementById('second'))" class="btn ">Unscramble!</a>
+	    </td>
+	  </tr>
+	</table>
+</div>
+
+<table>
+	<div class="second" id="second">
+		<img id="google2" src="images/google2.png" width="900px" alt="Italian Trulli">
+		<div class="card" style="width: 80rem;">
+			<audio id="sound2" src="sounds/button-4.mp3" preload="auto"></audio>
+			<a href="#" id="button2" class="btn" onclick="document.getElementById('sound2').play(); smoothScroll(document.getElementById('first'))">Try another one!</a>
+		  <ul class="list-group list-group-flush">
+		    <li class="list-group-item"> <p id="answer"> </p> </li>
+		  </ul>
+		</div>
+	</div>
+</table>
+
+</center>
+
+</body>
+
+<script type="text/javascript">
+	var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    if(!isChrome){
+      $('#iframeAudio').remove()
+    }
+  else{
+     $('#playAudio').remove() //just to make sure that it will not have 2x audio in the background 
+  }
+</script>
+
+<script>
+	window.smoothScroll = function(target) {
+	    var scrollContainer = target;
+	    do { //find scroll container
+	        scrollContainer = scrollContainer.parentNode;
+	        if (!scrollContainer) return;
+	        scrollContainer.scrollTop += 1;
+	    } while (scrollContainer.scrollTop == 0);
+
+	    var targetY = 0;
+	    do { //find the top of target relatively to the container
+	        if (target == scrollContainer) break;
+	        targetY += target.offsetTop;
+	    } while (target = target.offsetParent);
+
+	    scroll = function(c, a, b, i) {
+	        i++; if (i > 30) return;
+	        c.scrollTop = a + (b - a) / 30 * i;
+	        setTimeout(function(){ scroll(c, a, b, i); }, 20);
+	    }
+	    // start scrolling
+	    scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
+	}
+
+	var input1 = document.getElementById("string");
+	input1.addEventListener("keyup", function(event) {
+		event.preventDefault();
+		if (event.keyCode === 13) {
+			document.getElementById("button1").click();
+		}
+	});
+
+	var input2 = document.getElementById("template");
+	input2.addEventListener("keyup", function(event) {
+		event.preventDefault();
+		if (event.keyCode === 13) {
+			document.getElementById("button1").click();
+		}
+	});
+	</script>
+
+</html>
